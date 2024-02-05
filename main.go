@@ -25,19 +25,19 @@ func input(title string) string {
 	return s
 }
 
-func setEnemyHealth() int {
+func enemyHealth() int {
 	return randNum(80, 120)
 }
 
-func getLiteAttack() int {
+func liteAttack() int {
 	return randNum(2, 5)
 }
 
-func getMidAttack() int {
+func midAttack() int {
 	return randNum(15, 25)
 }
 
-func getHardAttack() int {
+func hardAttack() int {
 	return randNum(30, 40)
 }
 
@@ -49,7 +49,7 @@ func compareValues(enemyHealth, userTotalAttack int) bool {
 	return pointDifference <= 10
 }
 
-func getUserAttack() int {
+func userAttack() int {
 	total := 0
 
 	for i := 0; i < 5; i++ {
@@ -58,24 +58,24 @@ func getUserAttack() int {
 		var attackValue int
 		switch inputAttack {
 		case "lite":
-			attackValue = getLiteAttack()
+			attackValue = liteAttack()
 		case "mid":
-			attackValue = getMidAttack()
+			attackValue = midAttack()
 		case "hard":
-			attackValue = getHardAttack()
+			attackValue = hardAttack()
 		default:
 			fmt.Println("Неизвестный тип атаки:", inputAttack)
 			continue
 		}
 		fmt.Println("Количество очков твоей атаки:", attackValue)
-		total += 1
+		total += attackValue
 	}
 	return total
 }
 
 func runGame() bool {
-	enemyHealth := setEnemyHealth()
-	userTotalAttack := getUserAttack()
+	enemyHealth := enemyHealth()
+	userTotalAttack := userAttack()
 	fmt.Println("Тобой нанесён урон противнику равный", userTotalAttack)
 	fmt.Println("Очки здоровья противника до твоей атаки", enemyHealth)
 	if compareValues(enemyHealth, userTotalAttack) {
@@ -84,7 +84,7 @@ func runGame() bool {
 		fmt.Println("В этот раз не повезло :( Бой проигран.")
 	}
 	answer := input("Чтобы сыграть ещё раз, введи букву [y] или [Y]: ")
-	return answer == "Y"
+	return answer == "Y" || answer == "y"
 }
 
 func main() {
